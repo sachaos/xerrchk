@@ -13,13 +13,13 @@ func privateFunc2() error {
 }
 
 func privateFunc3() error {
-	_, err := errFunc2()
-	return err // want `wrap with xerrros.Wrap or hide with xerrors.Opaque`
+	_, err := errFunc2() // want `wrap with xerrros.Wrap or hide with xerrors.Opaque`
+	return err
 }
 
 func privateFunc4() error {
-	_, err := errFunc2()
-	return xerrors.Errorf("wrap: %w", err) // OK
+	_, err := errFunc2() // OK
+	return xerrors.Errorf("wrap: %w", err)
 }
 
 func errFunc1() error {
