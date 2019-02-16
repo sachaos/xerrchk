@@ -1,4 +1,4 @@
-package errchk
+package wrapping
 
 import (
 	"go/ast"
