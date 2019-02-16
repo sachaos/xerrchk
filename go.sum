@@ -80,6 +80,15 @@ github.com/sourcegraph/annotate v0.0.0-20160123013949-f4cad6c6324d/go.mod h1:Udh
 github.com/sourcegraph/syntaxhighlight v0.0.0-20170531221838-bd320f5d308e/go.mod h1:HuIsMU8RRBOtsCgI77wP899iHVBQpCmg4ErYMZB+2IA=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07/go.mod h1:kDXzergiv9cbyO7IOYJZWg1U88JhDg3PB6klq9Hg2pA=
+github.com/tenntenn/comment v0.0.0-20181121002213-5ca9d2df41d1 h1:x2YIpGGEzLRvIPuAwbgaME/YyUumLAlY3CN6BvsAf94=
+github.com/tenntenn/comment v0.0.0-20181121002213-5ca9d2df41d1/go.mod h1:EathzjUrWnMPz5E4yfCswi989Ykcx5JZy48KHjwMbx0=
+github.com/tenntenn/gosa v0.0.0-20190214154943-d65ba59f6395 h1:feBiDPofaWTcv1umSpM0MeE9XwuoKNDcaGL8xXMcgWY=
+github.com/tenntenn/gosa v0.0.0-20190214154943-d65ba59f6395/go.mod h1:M0hGOn4E6cUPbu5UGlWeH/zSSQi6UoY/1C8ZDim8dwQ=
+github.com/tenntenn/gosa/passes/nilerr v0.0.0-20190214154943-d65ba59f6395 h1:ulr7hdN8BbxQtZrs3AnEkr6ptIeqhSGX6CqEDdCS2lU=
+github.com/tenntenn/gosa/passes/nilerr v0.0.0-20190214154943-d65ba59f6395/go.mod h1:iTIPbMqlCGi5Y2dxbQ7pju7Alpoe+6GW8DGIsIma4Os=
+github.com/tenntenn/gosa/passes/wraperrfmt v0.0.0-20190214154943-d65ba59f6395 h1:J2Y++bDqQnmg4btLZOF9IpAGfgGY7ORvFPk4yDjHV5I=
+github.com/tenntenn/gosa/passes/wraperrfmt v0.0.0-20190214154943-d65ba59f6395/go.mod h1:S0fKUrZYV/lOBLD0XvDpd/ESVSsToyEbcOLktIxndrQ=
+github.com/tenntenn/readonly v0.0.0-20181208054919-8e3cac171114/go.mod h1:QClGzduntKrX7xBATQpfsUEo0MYSeyde+3YJMgmKIOc=
 go.opencensus.io v0.18.0/go.mod h1:vKdFvxhtzZ9onBp9VKHK8z/sRpBMnKAsufL7wlDrCOA=
 go4.org v0.0.0-20180809161055-417644f6feb5/go.mod h1:MkTOUMDaeVYJUOUsaDXIhWPZYa1yOyC1qaOBpL57BhE=
 golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d/go.mod h1:OWs+y06UdEOHN4y+MfF/py+xQ/tYqIWW03b70/CG9Rw=
@@ -109,6 +118,8 @@ golang.org/x/time v0.0.0-20180412165947-fbb02b2291d2/go.mod h1:tRJNPiyCQ0inRvYxb
 golang.org/x/time v0.0.0-20181108054448-85acf8d2951c/go.mod h1:tRJNPiyCQ0inRvYxbN9jk5I+vvW/OXSQhTDSoE431IQ=
 golang.org/x/tools v0.0.0-20180828015842-6cd1fcedba52/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
 golang.org/x/tools v0.0.0-20181030000716-a0a13e073c7b/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
+golang.org/x/tools v0.0.0-20181120234846-b5f2cae84da8/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
+golang.org/x/tools v0.0.0-20190213135902-6bedcd10978a/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
 golang.org/x/tools v0.0.0-20190214204934-8dcb7bc8c7fe h1:oou9Na+8DBZO/hrVPAjBTaHXmuDq0284mwGwfmQ4ids=
 golang.org/x/tools v0.0.0-20190214204934-8dcb7bc8c7fe/go.mod h1:E6PF97AdD6v0s+fPshSmumCW1S1Ne85RbPQxELkKa44=
 google.golang.org/api v0.0.0-20180910000450-7ca32eb868bf/go.mod h1:4mhQ8q/RsB7i+udVvVy5NUi08OU8ZlA0gRVgrF7VFY0=
