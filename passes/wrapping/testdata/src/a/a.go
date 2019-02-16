@@ -22,6 +22,10 @@ func privateFunc4() error {
 	return xerrors.Errorf("wrap: %w", err)
 }
 
+func privateFunc5() error {
+	return sentinelErr // want `wrap with xerrros.Wrap or hide with xerrors.Opaque`
+}
+
 func errFunc1() error {
 	return xerrors.New("foo")
 }
