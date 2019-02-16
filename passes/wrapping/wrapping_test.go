@@ -9,10 +9,12 @@ import (
 
 func TestPublicOption(t *testing.T) {
 	testdata := analysistest.TestData()
+	wrapping.Analyzer.Flags.Set("scope", "public")
 	analysistest.Run(t, testdata, wrapping.Analyzer, "a/option/public")
 }
 
 func TestAllOption(t *testing.T) {
 	testdata := analysistest.TestData()
+	wrapping.Analyzer.Flags.Set("scope", "all")
 	analysistest.Run(t, testdata, wrapping.Analyzer, "a/option/all")
 }

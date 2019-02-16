@@ -1,9 +1,11 @@
 package wrapping
 
 import (
+	"fmt"
 	"go/token"
 	"go/types"
 	"strings"
+	"unicode"
 
 	"golang.org/x/tools/go/analysis/passes/buildssa"
 	"golang.org/x/tools/go/ssa"
@@ -11,6 +13,7 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
+var scope string
 var errType = types.Universe.Lookup("error").Type().Underlying().(*types.Interface)
 
 var Analyzer = &analysis.Analyzer{
@@ -24,8 +27,19 @@ var Analyzer = &analysis.Analyzer{
 
 const Doc = "wrapping detect unwrapped error"
 const xerrorsPath = "golang.org/x/xerrors"
+const scopeAll = "all"
+const scopePublic = "public"
+
+func init() {
+	Analyzer.Flags.StringVar(&scope, "scope", scopeAll, "scope of checking (public, all)")
+}
 
 func run(pass *analysis.Pass) (interface{}, error) {
+	err := checkFlags()
+	if err != nil {
+		return nil, err
+	}
+
 	srcFuncs := pass.ResultOf[buildssa.Analyzer].(*buildssa.SSA).SrcFuncs
 	for _, srcFunc := range srcFuncs {
 		positions := wrappingErrPositions(srcFunc)
@@ -37,8 +51,18 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	return nil, nil
 }
 
+func checkFlags() error {
+	if scope == scopeAll || scope == scopePublic {
+		return nil
+	}
+	return fmt.Errorf("unknown scope '%s'", scope)
+}
+
 func wrappingErrPositions(srcFunc *ssa.Function) []token.Pos {
-	// TODO: public or all(including private) flag
+	if scope == scopePublic && isPrivate(srcFunc) {
+		return nil
+	}
+
 	if !isReturningErr(srcFunc) {
 		return nil
 	}
@@ -58,6 +82,15 @@ func wrappingErrPositions(srcFunc *ssa.Function) []token.Pos {
 	}
 
 	return positions
+}
+
+func isPrivate(function *ssa.Function) bool {
+	if function.Parent() != nil {
+		return isPrivate(function.Parent())
+	}
+
+	name := function.Name()
+	return unicode.IsLower(rune(name[0]))
 }
 
 func isCallingXerrors(val ssa.Value) bool {
