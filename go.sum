@@ -82,8 +82,6 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07/go.mod h1:kDXzergiv9cbyO7IOYJZWg1U88JhDg3PB6klq9Hg2pA=
 github.com/tenntenn/comment v0.0.0-20181121002213-5ca9d2df41d1 h1:x2YIpGGEzLRvIPuAwbgaME/YyUumLAlY3CN6BvsAf94=
 github.com/tenntenn/comment v0.0.0-20181121002213-5ca9d2df41d1/go.mod h1:EathzjUrWnMPz5E4yfCswi989Ykcx5JZy48KHjwMbx0=
-github.com/tenntenn/gosa v0.0.0-20190214154943-d65ba59f6395 h1:feBiDPofaWTcv1umSpM0MeE9XwuoKNDcaGL8xXMcgWY=
-github.com/tenntenn/gosa v0.0.0-20190214154943-d65ba59f6395/go.mod h1:M0hGOn4E6cUPbu5UGlWeH/zSSQi6UoY/1C8ZDim8dwQ=
 github.com/tenntenn/gosa/passes/nilerr v0.0.0-20190214154943-d65ba59f6395 h1:ulr7hdN8BbxQtZrs3AnEkr6ptIeqhSGX6CqEDdCS2lU=
 github.com/tenntenn/gosa/passes/nilerr v0.0.0-20190214154943-d65ba59f6395/go.mod h1:iTIPbMqlCGi5Y2dxbQ7pju7Alpoe+6GW8DGIsIma4Os=
 github.com/tenntenn/gosa/passes/wraperrfmt v0.0.0-20190214154943-d65ba59f6395 h1:J2Y++bDqQnmg4btLZOF9IpAGfgGY7ORvFPk4yDjHV5I=
