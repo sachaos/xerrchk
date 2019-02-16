@@ -30,7 +30,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	for _, srcFunc := range srcFuncs {
 		positions := wrappingErrPositions(srcFunc)
 		for _, pos := range positions {
-			pass.Reportf(pos, "wrap with xerrros.Wrap or hide with xerrors.Opaque")
+			pass.Reportf(pos, "wrap with xerrros.Errorf or xerrors.Opaque")
 		}
 	}
 

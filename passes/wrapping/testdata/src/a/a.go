@@ -5,7 +5,7 @@ import "golang.org/x/xerrors"
 var sentinelErr = xerrors.New("sentinel err")
 
 func privateFunc1() error {
-	return errFunc1() // want `wrap with xerrros.Wrap or hide with xerrors.Opaque`
+	return errFunc1() // want `wrap with xerrros.Errorf or xerrors.Opaque`
 }
 
 func privateFunc2() error {
@@ -13,7 +13,7 @@ func privateFunc2() error {
 }
 
 func privateFunc3() error {
-	_, err := errFunc2() // want `wrap with xerrros.Wrap or hide with xerrors.Opaque`
+	_, err := errFunc2() // want `wrap with xerrros.Errorf or xerrors.Opaque`
 	return err
 }
 
@@ -23,7 +23,7 @@ func privateFunc4() error {
 }
 
 func privateFunc5() error {
-	return sentinelErr // want `wrap with xerrros.Wrap or hide with xerrors.Opaque`
+	return sentinelErr // want `wrap with xerrros.Errorf or xerrors.Opaque`
 }
 
 func errFunc1() error {
