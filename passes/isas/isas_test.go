@@ -3,7 +3,7 @@ package isas_test
 import (
 	"testing"
 
-	"github.com/sachaos/errchk/passes/isas"
+	"github.com/sachaos/xerrchk/passes/isas"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

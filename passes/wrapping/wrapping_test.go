@@ -3,7 +3,7 @@ package wrapping_test
 import (
 	"testing"
 
-	"github.com/sachaos/errchk/passes/wrapping"
+	"github.com/sachaos/xerrchk/passes/wrapping"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

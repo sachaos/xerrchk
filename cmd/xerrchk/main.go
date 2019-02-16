@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/sachaos/errchk/passes/isas"
-	"github.com/sachaos/errchk/passes/wrapping"
+	"github.com/sachaos/xerrchk/passes/isas"
+	"github.com/sachaos/xerrchk/passes/wrapping"
 	"golang.org/x/tools/go/analysis/multichecker"
 )
 
