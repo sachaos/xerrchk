@@ -1,4 +1,4 @@
-package a
+package all
 
 import "golang.org/x/xerrors"
 
@@ -23,6 +23,28 @@ func privateFunc4() error {
 }
 
 func privateFunc5() error {
+	return sentinelErr // want `wrap with xerrros.Errorf or xerrors.Opaque`
+}
+
+func PublicFunc1() error {
+	return errFunc1() // want `wrap with xerrros.Errorf or xerrors.Opaque`
+}
+
+func PublicFunc2() error {
+	return xerrors.Errorf("wrap: %w", errFunc1()) // OK
+}
+
+func PublicFunc3() error {
+	_, err := errFunc2() // want `wrap with xerrros.Errorf or xerrors.Opaque`
+	return err
+}
+
+func PublicFunc4() error {
+	_, err := errFunc2() // OK
+	return xerrors.Errorf("wrap: %w", err)
+}
+
+func PublicFunc5() error {
 	return sentinelErr // want `wrap with xerrros.Errorf or xerrors.Opaque`
 }
 

@@ -7,7 +7,12 @@ import (
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 
-func Test(t *testing.T) {
+func TestPublicOption(t *testing.T) {
 	testdata := analysistest.TestData()
-	analysistest.Run(t, testdata, wrapping.Analyzer, "a")
+	analysistest.Run(t, testdata, wrapping.Analyzer, "a/option/public")
+}
+
+func TestAllOption(t *testing.T) {
+	testdata := analysistest.TestData()
+	analysistest.Run(t, testdata, wrapping.Analyzer, "a/option/all")
 }
