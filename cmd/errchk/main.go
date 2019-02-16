@@ -1,8 +1,14 @@
 package main
 
 import (
+	"github.com/sachaos/errchk/passes/isas"
 	"github.com/sachaos/errchk/passes/wrapping"
-	"golang.org/x/tools/go/analysis/singlechecker"
+	"golang.org/x/tools/go/analysis/multichecker"
 )
 
-func main() { singlechecker.Main(wrapping.Analyzer) }
+func main() {
+	multichecker.Main(
+		wrapping.Analyzer,
+		isas.Analyzer,
+	)
+}
