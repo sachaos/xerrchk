@@ -1,4 +1,4 @@
-package isas
+package erreq
 
 import (
 	"go/ast"
@@ -10,7 +10,7 @@ import (
 )
 
 var Analyzer = &analysis.Analyzer{
-	Name: "isas",
+	Name: "erreq",
 	Doc:  Doc,
 	Run:  run,
 	Requires: []*analysis.Analyzer{
@@ -18,7 +18,7 @@ var Analyzer = &analysis.Analyzer{
 	},
 }
 
-const Doc = "isas finds binary expression which is comparing error"
+const Doc = "erreq finds binary expression which is comparing error"
 
 var errType = types.Universe.Lookup("error").Type().Underlying().(*types.Interface)
 
