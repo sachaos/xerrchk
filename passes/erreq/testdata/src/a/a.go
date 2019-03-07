@@ -16,7 +16,7 @@ func alwaysErr() error {
 }
 
 func switchErrCase1(err error) string {
-	switch err { // want `a`
+	switch err { // want `do not use not unwrapped errors as a tag of switch statement.`
 	case sentinelErr:
 		return "true"
 	default:

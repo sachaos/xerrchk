@@ -104,7 +104,7 @@ func checkSwitchStmt(pass *analysis.Pass, inspect *inspector.Inspector) {
 			}
 		}
 
-		pass.Reportf(node.Pos(), "a")
+		pass.Reportf(node.Pos(), "do not use not unwrapped errors as a tag of switch statement.")
 	})
 }
 
