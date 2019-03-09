@@ -25,6 +25,7 @@ var causeFuncs = []string{
 	"TestCauseFunc", // For test
 
 	"github.com/pkg/errors.Cause",
+	"golang.org/x/xerrors.Unwrap",
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {

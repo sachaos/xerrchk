@@ -1,6 +1,9 @@
 package a
 
-import "fmt"
+import (
+	"fmt"
+	"golang.org/x/xerrors"
+)
 
 var sentinelErr = fmt.Errorf("sentinel err")
 
@@ -15,7 +18,8 @@ func alwaysErr() error {
 	return sentinelErr
 }
 
-func switchErrCase1(err error) string {
+func switchErrCase1() string {
+	err := xerrors.New("write failed")
 	switch err { // want `do not use not unwrapped errors as a tag of switch statement.`
 	case sentinelErr:
 		return "true"
@@ -24,8 +28,19 @@ func switchErrCase1(err error) string {
 	}
 }
 
-func switchErrCase2(err error) string {
+func switchErrCase2() string {
+	err := xerrors.New("write failed")
 	switch TestCauseFunc(err) { // OK
+	case sentinelErr:
+		return "true"
+	default:
+		return "false"
+	}
+}
+
+func switchErrCase3() string {
+	err := xerrors.New("write failed")
+	switch xerrors.Unwrap(err) { // OK
 	case sentinelErr:
 		return "true"
 	default:
