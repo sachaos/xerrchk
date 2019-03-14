@@ -7,6 +7,12 @@ import (
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 
+func TestWrapping(t *testing.T) {
+	testdata := analysistest.TestData()
+	wrapping.Analyzer.Flags.Set("scope", "public")
+	analysistest.Run(t, testdata, wrapping.Analyzer, "a")
+}
+
 func TestPublicOption(t *testing.T) {
 	testdata := analysistest.TestData()
 	wrapping.Analyzer.Flags.Set("scope", "public")
