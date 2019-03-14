@@ -142,6 +142,11 @@ func convertToOriginVal(val ssa.Value) ssa.Value {
 	switch v := val.(type) {
 	case *ssa.Extract:
 		return v.Tuple
+	case *ssa.MakeInterface:
+		if val.Pos() != 0 {
+			return val
+		}
+		return v.X
 	}
 	return val
 }
