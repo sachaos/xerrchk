@@ -42,7 +42,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	srcFuncs := pass.ResultOf[buildssa.Analyzer].(*buildssa.SSA).SrcFuncs
 	for _, srcFunc := range srcFuncs {
-		positions := wrappingErrPositions(srcFunc)
+		positions := wrappingErrPositions(pass, srcFunc)
 		for _, pos := range positions {
 			pass.Reportf(pos, "wrap with xerrros.Errorf or xerrors.Opaque")
 		}
@@ -58,7 +58,7 @@ func checkFlags() error {
 	return fmt.Errorf("unknown scope '%s'", scope)
 }
 
-func wrappingErrPositions(srcFunc *ssa.Function) []token.Pos {
+func wrappingErrPositions(pass *analysis.Pass, srcFunc *ssa.Function) []token.Pos {
 	if scope == scopePublic && isPrivate(srcFunc) {
 		return nil
 	}
@@ -75,13 +75,18 @@ func wrappingErrPositions(srcFunc *ssa.Function) []token.Pos {
 				continue
 			}
 
-			if isErr(val.Type()) && !isCallingXerrors(val) && isReachToReturn(val) {
+			if !isRange(val) && isErr(val.Type()) && !isCallingXerrors(val) && isReachToReturn(val) {
 				positions = append(positions, convertToOriginVal(val).Pos())
 			}
 		}
 	}
 
 	return positions
+}
+
+func isRange(val ssa.Value) bool {
+	_, ok := val.(*ssa.Range)
+	return ok
 }
 
 func isPrivate(function *ssa.Function) bool {
