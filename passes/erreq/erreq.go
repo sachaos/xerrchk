@@ -1,6 +1,7 @@
 package erreq
 
 import (
+	"fmt"
 	"go/ast"
 	"go/token"
 	"go/types"
@@ -21,10 +22,7 @@ var Analyzer = &analysis.Analyzer{
 
 var errType = types.Universe.Lookup("error").Type().Underlying().(*types.Interface)
 
-var causeFuncs = []string{
-	"TestCauseFunc", // For test
-
-	"github.com/pkg/errors.Cause",
+var unwrapFuncs = []string{
 	"golang.org/x/xerrors.Unwrap",
 }
 
@@ -45,6 +43,12 @@ func checkBinaryOps(pass *analysis.Pass, inspect *inspector.Inspector) {
 	}
 	inspect.Preorder(nodeFilter, func(node ast.Node) {
 		binExpr, ok := node.(*ast.BinaryExpr)
+
+		fmt.Println()
+		fmt.Println()
+		fmt.Println()
+		fmt.Println(binExpr)
+
 		if !ok {
 			return
 		}
@@ -71,7 +75,7 @@ func checkBinaryOps(pass *analysis.Pass, inspect *inspector.Inspector) {
 			return
 		}
 
-		pass.Reportf(node.Pos(), "do not compare errors with binary ops.")
+		pass.Reportf(node.Pos(), "do not compare error with \"==\" or \"!=\"")
 	})
 }
 
@@ -83,6 +87,8 @@ func checkSwitchStmt(pass *analysis.Pass, inspect *inspector.Inspector) {
 	inspect.Preorder(nodeFilter, func(node ast.Node) {
 
 		switchStmt, ok := node.(*ast.SwitchStmt)
+
+		pass.Reportf(node.Pos(), "do not use wrapped errors as a tag of switch statement.")
 
 		if !ok {
 			return
@@ -97,26 +103,28 @@ func checkSwitchStmt(pass *analysis.Pass, inspect *inspector.Inspector) {
 			return
 		}
 
-		// if the tag of switch stmt is wrapped by Cause func, it should be allowed.
+		// if the tag of switch stmt is unwrapped, it should be allowed.
 		callExp, ok := switchStmt.Tag.(*ast.CallExpr)
 		if ok {
-			if expIsCauseFunc(callExp.Fun) {
+			if expIsUnwrapFunc(callExp.Fun) {
 				return
 			}
 		}
 
-		pass.Reportf(node.Pos(), "do not use not unwrapped errors as a tag of switch statement.")
+		pass.Reportf(node.Pos(), "do not use wrapped errors as a tag of switch statement.")
 	})
 }
 
-func expIsCauseFunc(exp ast.Expr) bool {
+func expIsUnwrapFunc(exp ast.Expr) bool {
 	funIdent, ok := exp.(*ast.Ident)
+
+	fmt.Println(funIdent)
 
 	if !ok {
 		return false
 	}
 
-	for _, funcName := range causeFuncs {
+	for _, funcName := range unwrapFuncs {
 		if funIdent.Name == funcName {
 			return true
 		}
