@@ -1,7 +1,6 @@
 package erreq
 
 import (
-	"fmt"
 	"go/ast"
 	"go/token"
 	"go/types"
@@ -44,11 +43,6 @@ func checkBinaryOps(pass *analysis.Pass, inspect *inspector.Inspector) {
 	inspect.Preorder(nodeFilter, func(node ast.Node) {
 		binExpr, ok := node.(*ast.BinaryExpr)
 
-		fmt.Println()
-		fmt.Println()
-		fmt.Println()
-		fmt.Println(binExpr)
-
 		if !ok {
 			return
 		}
@@ -87,9 +81,6 @@ func checkSwitchStmt(pass *analysis.Pass, inspect *inspector.Inspector) {
 	inspect.Preorder(nodeFilter, func(node ast.Node) {
 
 		switchStmt, ok := node.(*ast.SwitchStmt)
-
-		pass.Reportf(node.Pos(), "do not use wrapped errors as a tag of switch statement.")
-
 		if !ok {
 			return
 		}
@@ -116,18 +107,19 @@ func checkSwitchStmt(pass *analysis.Pass, inspect *inspector.Inspector) {
 }
 
 func expIsUnwrapFunc(exp ast.Expr) bool {
-	funIdent, ok := exp.(*ast.Ident)
-
-	fmt.Println(funIdent)
-
+	selExp, ok := exp.(*ast.SelectorExpr)
 	if !ok {
 		return false
 	}
 
-	for _, funcName := range unwrapFuncs {
-		if funIdent.Name == funcName {
-			return true
-		}
+	// it is better to check the import path too.
+	pack, ok := selExp.X.(*ast.Ident)
+	if !ok || "xerrors" != pack.Name {
+		return false
+	}
+
+	if "Unwrap" == selExp.Sel.Name {
+		return true
 	}
 
 	return false
