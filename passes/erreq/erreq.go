@@ -21,10 +21,6 @@ var Analyzer = &analysis.Analyzer{
 
 var errType = types.Universe.Lookup("error").Type().Underlying().(*types.Interface)
 
-var unwrapFuncs = []string{
-	"golang.org/x/xerrors.Unwrap",
-}
-
 func run(pass *analysis.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
