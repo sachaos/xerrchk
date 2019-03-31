@@ -21,7 +21,7 @@ func alwaysErr() error {
 
 func switchErrCase1() string {
 	err := xerrors.New("write failed")
-	switch err { // want `do not use wrapped errors as a tag of switch statement.`
+	switch err { // want `do not use error on switch statement`
 	case sentinelErr:
 		return "true"
 	default:
@@ -31,7 +31,7 @@ func switchErrCase1() string {
 
 func switchErrCase2() string {
 	err := xerrors.New("write failed")
-	switch xerrors.Unwrap(err) { // OK
+	switch xerrors.Unwrap(err) { // want `do not use error on switch statement`
 	case sentinelErr:
 		return "true"
 	default:
