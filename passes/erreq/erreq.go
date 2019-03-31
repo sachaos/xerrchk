@@ -90,33 +90,6 @@ func checkSwitchStmt(pass *analysis.Pass, inspect *inspector.Inspector) {
 			return
 		}
 
-		// if the tag of switch stmt is unwrapped, it should be allowed.
-		callExp, ok := switchStmt.Tag.(*ast.CallExpr)
-		if ok {
-			if expIsUnwrapFunc(callExp.Fun) {
-				return
-			}
-		}
-
-		pass.Reportf(node.Pos(), "do not use wrapped errors as a tag of switch statement.")
+		pass.Reportf(node.Pos(), "do not use error on switch statement")
 	})
-}
-
-func expIsUnwrapFunc(exp ast.Expr) bool {
-	selExp, ok := exp.(*ast.SelectorExpr)
-	if !ok {
-		return false
-	}
-
-	// it is better to check the import path too.
-	pack, ok := selExp.X.(*ast.Ident)
-	if !ok || "xerrors" != pack.Name {
-		return false
-	}
-
-	if "Unwrap" == selExp.Sel.Name {
-		return true
-	}
-
-	return false
 }
