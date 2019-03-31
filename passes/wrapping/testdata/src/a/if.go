@@ -20,7 +20,7 @@ func IfStatement2(cond bool) error {
 	if cond {
 		err = xerrors.Errorf("wrap1: %w", sentinelErr)
 	} else {
-		err = xerrors.Errorf("wrap2 %w", sentinelErr)
+		err = xerrors.Errorf("wrap2: %w", sentinelErr)
 	}
 
 	return err
