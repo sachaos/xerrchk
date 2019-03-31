@@ -75,7 +75,7 @@ func wrappingErrPositions(pass *analysis.Pass, srcFunc *ssa.Function) []token.Po
 				continue
 			}
 
-			if !isRange(val) && isErr(val.Type()) && !isCallingXerrors(val) && isReachToReturn(val) {
+			if !isRange(val) && isErr(val.Type()) && !isCallingXerrors(val) && !isCallingXerrorsImplicitly(val) && isReachToReturn(val) {
 				positions = append(positions, convertToOriginVal(val).Pos())
 			}
 		}
@@ -96,6 +96,20 @@ func isPrivate(function *ssa.Function) bool {
 
 	name := function.Name()
 	return unicode.IsLower(rune(name[0]))
+}
+
+func isCallingXerrorsImplicitly(val ssa.Value) bool {
+	phi, ok := val.(*ssa.Phi)
+	if !ok {
+		return false
+	}
+
+	for _, edge := range phi.Edges {
+		if !isCallingXerrors(edge) {
+			return false
+		}
+	}
+	return true
 }
 
 func isCallingXerrors(val ssa.Value) bool {
